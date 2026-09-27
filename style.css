@@ -1,0 +1,165 @@
+body {
+    margin: 0;
+    background: radial-gradient(circle, #1a2f4c 0%, #0d1624 100%); /* Deep Arctic night sky */
+    color: #f0f8ff; /* Soft ice-white text */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+.player-container {
+    background-color: rgba(22, 38, 61, 0.85); /* Frosty translucent navy */
+    backdrop-filter: blur(10px);
+    border: 2px solid #5d9cec; /* Glacier blue border */
+    padding: 30px;
+    border-radius: 30px; /* Softer, rounder penguin-egg curves */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(93, 156, 236, 0.2);
+    width: 360px;
+    text-align: center;
+}
+
+.penguin-mascot {
+    font-size: 50px;
+    margin-bottom: 10px;
+    animation: waddle 2.5s ease-in-out infinite;
+    display: inline-block;
+}
+
+/* Waddle animation to bring the mascot to life */
+@keyframes waddle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-8deg); }
+    75% { transform: rotate(8deg); }
+}
+
+.song-details h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(93, 156, 236, 0.4);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-details h3 {
+    font-size: 15px;
+    color: #a0c4ff; /* Light frost blue */
+    margin-top: 0;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+.progress-container {
+    background: #2c3e50;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 15px 0 5px 0;
+    height: 8px;
+    width: 100%;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, #4fc3f7, #00d2ff); /* Glowing neon ice blue */
+    border-radius: 10px;
+    height: 100%;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.time-durations {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #a0c4ff;
+    margin-bottom: 25px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+button:hover {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 8px #4fc3f7);
+}
+
+.main-button {
+    font-size: 55px; /* Large penguin control button */
+}
+
+/* Scrollable Igloo Track Area */
+.playlist-menu {
+    border-top: 2px dashed #3a5375;
+    padding-top: 20px;
+    text-align: left;
+}
+
+.playlist-menu h4 {
+    margin: 0 0 12px 5px;
+    color: #a0c4ff;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.playlist-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+/* Custom Ice-Themed Scrollbar */
+.playlist-menu ul::-webkit-scrollbar {
+    width: 6px;
+}
+
+.playlist-menu ul::-webkit-scrollbar-thumb {
+    background: #3a5375;
+    border-radius: 10px;
+}
+
+.playlist-menu li {
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #e2efff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+    transition: background 0.2s, padding-left 0.2s;
+}
+
+.playlist-menu li:hover {
+    background-color: rgba(93, 156, 236, 0.2);
+    padding-left: 18px; /* Smooth slide out effect on hover */
+}
+
+.playlist-menu li.active {
+    color: #ffffff;
+    font-weight: bold;
+    background: linear-gradient(90deg, #1e3c72, #2a5298); /* Solid glacier row highlight */
+    border-left: 4px solid #00d2ff;
+}
