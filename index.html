@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Pebbles Penguin Player</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="player-container">
+        <!-- Cute Penguin Mascot Header -->
+        <div class="penguin-mascot">🐧✨</div>
+
+        <!-- Song Details -->
+        <div class="song-details">
+            <h2 id="title">Arctic Arcade</h2>
+            <h3 id="artist">DJ Pebbles</h3>
+        </div>
+
+        <!-- Hidden Audio Element -->
+        <audio id="audio" src=""></audio>
+
+        <!-- Snowflake Progress Bar -->
+        <div class="progress-container" id="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <div class="time-durations">
+            <span id="current-time">0:00</span>
+            <span id="duration">0:00</span>
+        </div>
+
+        <!-- Ice Floe Playback Controls -->
+        <div class="controls">
+            <button id="prev" title="Previous Track">◀❄️</button>
+            <button id="play" class="main-button" title="Play/Pause">🐧</button>
+            <button id="next" title="Next Track">❄️▶</button>
+        </div>
+
+        <!-- Scrollable Igloo Track Playlist Menu -->
+        <div class="playlist-menu">
+            <h4>🧊 The Igloo Playlist</h4>
+            <ul id="track-list">
+                <!-- Tracks will dynamically render here via JavaScript -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
