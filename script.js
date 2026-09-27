@@ -8,8 +8,9 @@ const progressBar = document.getElementById('progress-bar');
 const progressContainer = document.getElementById('progress-container');
 const currentTimeEl = document.getElementById('current-time');
 const durationEl = document.getElementById('duration');
+const trackListEl = document.getElementById('track-list');
 
-// 1. Full playlist with DJ Pebbles set as the artist
+// 1. Complete tracklist with your exact files from GitHub
 const songs = [
     { name: 'Arctic Arcade', title: 'Arctic Arcade', artist: 'DJ Pebbles' },
     { name: 'Dhol Shock', title: 'Dhol Shock', artist: 'DJ Pebbles' },
@@ -31,27 +32,33 @@ const songs = [
 let songIndex = 0;
 let isPlaying = false;
 
-// 2. Load song properties (.m4a files)
+// 2. Load song properties (.m4a tracks inside 'music' folder)
 function loadSong(song) {
     title.innerText = song.title;
     artist.innerText = song.artist;
-    // Encodes filenames to safely handle spaces on GitHub Pages
+    // URL-encodes track names so paths like "music/Arctic Arcade.m4a" function natively
     audio.src = `music/${encodeURIComponent(song.name)}.m4a`; 
+    
+    // Refresh the highlight state whenever a song changes
+    if (trackListEl && trackListEl.children.length > 0) {
+        updateActiveTrackHighlight();
+    }
 }
 
+// 3. Penguin Playback Control Logic
 function playSong() {
     isPlaying = true;
-    playBtn.innerText = '⏸';
+    playBtn.innerText = '⏸️'; // Changes to pause button when playing
     audio.play();
 }
 
 function pauseSong() {
     isPlaying = false;
-    playBtn.innerText = '▶';
+    playBtn.innerText = '🐧'; // Changes back to the penguin when paused
     audio.pause();
 }
 
-// 3. Event Listeners for Play/Pause
+// Play or Pause execution trigger
 playBtn.addEventListener('click', () => (isPlaying ? pauseSong() : playSong()));
 
 // Navigation Controls
@@ -64,7 +71,6 @@ function prevSong() {
     playSong();
 }
 
-// Auto-advance playlist
 function nextSong() {
     songIndex++;
     if (songIndex > songs.length - 1) {
@@ -82,20 +88,20 @@ function updateProgressBar(e) {
     if (isPlaying) {
         const { duration, currentTime } = e.srcElement;
         
-        // Update green bar width
+        // Progress bar width configuration
         const progressPercent = (currentTime / duration) * 100;
         progressBar.style.width = `${progressPercent}%`;
         
-        // Calculate display time formatting
+        // Time conversion formatting (Duration)
         const durationMinutes = Math.floor(duration / 60);
         let durationSeconds = Math.floor(duration % 60);
         if (durationSeconds < 10) { durationSeconds = `0${durationSeconds}`; }
         
-        // Prevent NaN while audio buffers
         if (durationSeconds) {
             durationEl.innerText = `${durationMinutes}:${durationSeconds}`;
         }
 
+        // Time conversion formatting (Current Elapsed)
         const currentMinutes = Math.floor(currentTime / 60);
         let currentSeconds = Math.floor(currentTime % 60);
         if (currentSeconds < 10) { currentSeconds = `0${currentSeconds}`; }
@@ -103,7 +109,7 @@ function updateProgressBar(e) {
     }
 }
 
-// Jump directly to clicked time on timeline
+// Seek/Jump timeline on mouse click
 function setProgress(e) {
     const width = this.clientWidth;
     const clickX = e.offsetX;
@@ -113,7 +119,39 @@ function setProgress(e) {
 
 audio.addEventListener('timeupdate', updateProgressBar);
 progressContainer.addEventListener('click', setProgress);
-audio.addEventListener('ended', nextSong); 
+audio.addEventListener('ended', nextSong); // Auto-advance track when finished
 
-// Initialize Player
+// 5. Dynamic Tracklist Generator
+function initPlaylistUI() {
+    trackListEl.innerHTML = '';
+    songs.forEach((song, index) => {
+        const li = document.createElement('li');
+        li.innerText = `🧊 ${song.title}`; // Cozy ice cube label padding
+        if (index === songIndex) li.classList.add('active');
+        
+        // Quick select row listener
+        li.addEventListener('click', () => {
+            songIndex = index;
+            loadSong(songs[songIndex]);
+            playSong();
+        });
+        trackListEl.appendChild(li);
+    });
+}
+
+// Refresh visual active styling indicator across rows
+function updateActiveTrackHighlight() {
+    const rows = trackListEl.querySelectorAll('li');
+    rows.forEach((row, index) => {
+        if (index === songIndex) {
+            row.classList.add('active');
+            row.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); // Auto-scroll to current song
+        } else {
+            row.remove('active');
+        }
+    });
+}
+
+// Launch player structure
+initPlaylistUI();
 loadSong(songs[songIndex]);
